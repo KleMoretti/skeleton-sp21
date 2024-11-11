@@ -142,41 +142,39 @@ public class Model extends Observable {
 
         board.setViewingPerspective(side);
 
-       for (int col=0;col< board.size();col++){
-           for(int row= board.size()-1;row>=0;row--){
-               Tile t1=board.tile(col,row);
-               if(t1!=null){
-                   for(int row1=row-1;row1>=0;row1--){
-                       Tile t2=board.tile(col,row1);
-                       if(t2!=null){
-                           if(t1.value()==t2.value()){
-                               board.move(col,row,t2);
-                               score+=2*t1.value();
-                               changed=true;
-                               row=row1;
-                               break;
-                           }
-                           else{
-                               break;
-                           }
-                       }
-                       else{
-                           continue;
-                       }
-                   }
-               }
-           }
-       }
+        for (int col = 0; col < board.size(); col++) {
+            for (int row = board.size() - 1; row >= 0; row--) {
+                Tile t1 = board.tile(col, row);
+                if (t1 != null) {
+                    for (int row1 = row - 1; row1 >= 0; row1--) {
+                        Tile t2 = board.tile(col, row1);
+                        if (t2 != null) {
+                            if (t1.value() == t2.value()) {
+                                board.move(col, row, t2);
+                                score += 2 * t1.value();
+                                changed = true;
+                                row = row1;
+                                break;
+                            } else {
+                                break;
+                            }
+                        } else {
+                            continue;
+                        }
+                    }
+                }
+            }
+        }
 
-        for (int col=0;col< board.size();col++){
-            for(int row= board.size()-1;row>=0;row--){
-                Tile t1=board.tile(col,row);
-                if(t1==null){
-                    for(int row1=row-1;row1>=0;row1--){
-                        Tile t2=board.tile(col,row1);
-                        if(t2!=null){
-                            board.move(col,row,t2);
-                            changed=true;
+        for (int col = 0; col < board.size(); col++) {
+            for (int row = board.size() - 1; row >= 0; row--) {
+                Tile t1 = board.tile(col, row);
+                if (t1 == null) {
+                    for (int row1 = row - 1; row1 >= 0; row1--) {
+                        Tile t2 = board.tile(col, row1);
+                        if (t2 != null) {
+                            board.move(col, row, t2);
+                            changed = true;
                             break;
                         }
                     }
