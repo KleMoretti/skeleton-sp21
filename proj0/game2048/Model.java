@@ -142,46 +142,47 @@ public class Model extends Observable {
 
         board.setViewingPerspective(side);
 
-        for (int row = board.size() - 1; row >= 0; row--) {
-            for (int col = 0; col < board.size(); col++) {
-                Tile tile = board.tile(row,col);
-                if (tile != null) {
-                    for (int col1 = col + 1; col1 <board.size(); col1++) {
-                        Tile tile1 = board.tile(row,col1);
-                        if (tile1 != null) {
-                            if (tile1.value() == tile.value()) {
-                                board.move(row,col, tile1);
-                                score += tile1.value() * 2;
-                                changed = true;
-                                col=col1;
-                                break;
-                            } else {
-                                break;
-                            }
-                        } else {
-                            continue;
-                        }
-                    }
-                }
-            }
-        }
+       for (int col=0;col< board.size();col++){
+           for(int row= board.size()-1;row>=0;row--){
+               Tile t1=board.tile(col,row);
+               if(t1!=null){
+                   for(int row1=row-1;row1>=0;row1--){
+                       Tile t2=board.tile(col,row1);
+                       if(t2!=null){
+                           if(t1.value()==t2.value()){
+                               board.move(col,row,t2);
+                               score+=2*t1.value();
+                               changed=true;
+                               row=row1;
+                               break;
+                           }
+                           else{
+                               break;
+                           }
+                       }
+                       else{
+                           continue;
+                       }
+                   }
+               }
+           }
+       }
 
-        for (int row = board.size()-1; row >= 0; row--) {
-            for (int col = 0; col < board.size(); col++) {
-                Tile t1 = board.tile(row,col);
-                if (t1 == null) {
-                    for (int col1 = col - 1; col1 >= 0; col1--) {
-                        Tile t2 = board.tile(row,col1);
-                        if (t2 != null) {
-                            board.move(row,col, t2);
-                            changed = true;
+        for (int col=0;col< board.size();col++){
+            for(int row= board.size()-1;row>=0;row--){
+                Tile t1=board.tile(col,row);
+                if(t1==null){
+                    for(int row1=row-1;row1>=0;row1--){
+                        Tile t2=board.tile(col,row1);
+                        if(t2!=null){
+                            board.move(col,row,t2);
+                            changed=true;
                             break;
                         }
                     }
                 }
             }
         }
-
         board.setViewingPerspective(side);
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
